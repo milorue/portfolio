@@ -52,7 +52,7 @@ function App() {
 
           <SocialLinks xs={6}/>
 
-          <Button type={'text'} style={{backgroundColor: '#28262C', color: 'white'}} href={"https://docdro.id/8QYRGHa"}>Resume</Button>
+          <Button type={'text'} style={{backgroundColor: '#28262C', color: 'white'}} href={"https://docdro.id/LePG3ZX"}>Resume</Button>
 
         </div>
 
