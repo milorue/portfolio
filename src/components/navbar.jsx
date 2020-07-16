@@ -9,31 +9,31 @@ function NavBar(props){
         <div className={'nav'}>
             
                 <div style ={{}}>
-                    <Button type={"text"} style={{width: "100%", textAlign: 'left'}}>
+                    <Button href={"#about"} type={"text"} style={{width: "100%", textAlign: 'left'}}>
                         <h3>{<RocketFilled/>} About</h3>
                     </Button>
                 </div>
                 <Divider/>
                 <div style={{marginTop: 10}}>
-                    <Button type={"text"} style={{width: "100%", textAlign: 'left'}}>
+                    <Button href={"#skills"} type={"text"} style={{width: "100%", textAlign: 'left'}}>
                         <h3>{<ExperimentFilled/>} Skills</h3>
                     </Button>
                 </div>
                 <Divider/>
                 <div style={{marginTop: 10}}>
-                    <Button type={"text"} style={{width: "100%", textAlign: 'left'}}>
+                    <Button href={"#projects"} type={"text"} style={{width: "100%", textAlign: 'left'}}>
                         <h3>{<ToolFilled/>} Projects</h3>
                     </Button>
                 </div>
                 <Divider/>
                 <div style={{marginTop: 10}}>
-                    <Button type={"text"} style={{width: "100%", textAlign: 'left'}}>
+                    <Button href={"#contact"} type={"text"} style={{width: "100%", textAlign: 'left'}}>
                         <h3>{<PhoneFilled/>} Contact</h3>
                     </Button>
                 </div>
                 <Divider/>
                 <div style={{marginTop: 20}}>
-                <SocialLinks xs={6}/>
+                <SocialLinks xs={6} theme={{fontColor: 'black'}}/>
                 </div>
                 
                 

@@ -12,25 +12,25 @@ function SocialLinks(props){
             key: 0,
             name: "Github",
             link: "https://github.com/milorue",
-            icon: <GithubFilled/>
+            icon: <GithubFilled style={{color: props.theme.fontColor}}/>
         },
         {
             key: 1,
             name: "LinkedIn",
             link: "https://www.linkedin.com/in/milorue/",
-            icon: <LinkedinFilled/>
+            icon: <LinkedinFilled style={{color: props.theme.fontColor}}/>
         },
         {
             key: 2,
             name: "Devpost",
             link: "https://devpost.com/MiloRue?ref_content=user-portfolio&ref_feature=portfolio&ref_medium=global-nav",
-            icon: <CodeFilled/>
+            icon: <CodeFilled style={{color: props.theme.fontColor}}/>
         },
         {
             key: 3,
             name: "Instagram",
             link: "https://www.instagram.com/milorue/",
-            icon: <InstagramFilled/>
+            icon: <InstagramFilled style={{color: props.theme.fontColor}}/>
         }
 
     ]
