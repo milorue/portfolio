@@ -11,6 +11,7 @@ import NavBar from './components/navbar'
 import SocialLinks from './components/sociallinks'
 import GraphQLEditor from './components/graphqleditor'
 import Skills from './components/skills'
+import Projects from './components/projects'
 
 // static data
 import about from './data/about_metadata'
@@ -139,8 +140,8 @@ function App() {
           </Row>
 
           <Row style={{textAlign: 'left', marginBottom: 30, marginLeft: 20, marginRight: 20}} justify={'center'}>
-            <Col xs={24} style={{textAlign: 'center'}}>
-              <h4 style={{color: theme.fontColor}}>Under Construction :(</h4>
+            <Col xs={20} style={{textAlign: 'center'}}>
+              <Projects theme={theme}/>
             </Col>
             
           </Row>
