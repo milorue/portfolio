@@ -12,6 +12,7 @@
   justify-content: left;
   position: fixed;
   flex-direction: row;
+  z-index:9; 
 }
 
 .about{
