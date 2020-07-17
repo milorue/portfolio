@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react'
-import {Row, Col, Button, Card, Tag, Tooltip} from 'antd'
+import {Row, Col, Button, Card, Tag, Tooltip, Typography} from 'antd'
 import {useQuery} from '@apollo/react-hooks';
 import gql from 'graphql-tag'
-import {LoadingOutlined, DatabaseFilled} from '@ant-design/icons'
+import {LoadingOutlined, DatabaseFilled, GithubOutlined, DesktopOutlined} from '@ant-design/icons'
 import './projects.css'
 
 const GET_PROJECTS = gql`
@@ -35,10 +35,13 @@ function Projects(props){
             return projects.map((project) => {
                 return(
                     <Col xs={24} sm={12} md={8} lg={6} key={project.name} style={{width: "100%"}}>
-                        <Card cover={<img style={{height: 200, width: "100%"}} className={"cardImg"} src={project.image}/>} bodyStyle={{height: 200, textAlign: 'left' ,backgroundColor: props.theme.boxColor}}>
-                            <h4>{project.name}</h4>
-                            <p style={{fontSize: 10}}>{project.description}</p>
-                            <Button>Test</Button>
+                        <Card style={{borderColor: 'transparent', borderRadius: 5, borderWidth: 0}} cover={<img style={{color: props.theme.fontColor ,height: 200, width: "100%"}} className={"cardImg"} src={project.image}/>} bodyStyle={{borderColor: "transparent", height: 250, textAlign: 'left' ,backgroundColor: props.theme.boxColor, color: props.theme.fontColor}} hoverable>
+                            <h4 style={{color: props.theme.fontColor}}>{project.name}</h4>
+                            <Typography.Paragraph ellipsis={{rows: 3}} style={{fontSize: 10}}>{project.description}</Typography.Paragraph>
+                            <Row style={{marginTop: 10}}>
+                                <Button href={project.links[0]} type={"text"} size={'large'}>{<DesktopOutlined style={{color: props.theme.fontColor}}/>}</Button>
+                                <Button href={project.repos[0]}type={"text"} size={'large'}>{<GithubOutlined style={{color: props.theme.fontColor}}/>}</Button>
+                            </Row>
                         </Card>
                     </Col>
                 )
