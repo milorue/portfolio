@@ -35,7 +35,7 @@ function Projects(props){
         if(links.length > 0){
             return links.map((link) => {
                 return(
-                    <Button key={link} style={{color: props.theme.fontColor, fontSize: 9, overflow: 'hidden'}} href={link} type={"text"} size={'middle'}>{<DesktopOutlined style={{color: props.theme.fontColor}}/>} {link}</Button>
+                    <Button target={"_blank"} key={link} style={{color: props.theme.fontColor, fontSize: 9, overflow: 'hidden'}} href={link} type={"text"} size={'middle'}>{<DesktopOutlined style={{color: props.theme.fontColor}}/>} {link}</Button>
                 )
             })
         }
@@ -45,7 +45,7 @@ function Projects(props){
         if(videos.length > 0){
             return videos.map((video) => {
                 return(
-                    <Button key={video} style={{color: props.theme.fontColor, fontSize: 9, overflow: 'hidden'}} href={video} type={"text"} size={'middle'}>{<VideoCameraOutlined style={{color: props.theme.fontColor}}/>} Video</Button>
+                    <Button target={"_blank"} key={video} style={{color: props.theme.fontColor, fontSize: 9, overflow: 'hidden'}} href={video} type={"text"} size={'middle'}>{<VideoCameraOutlined style={{color: props.theme.fontColor}}/>} Video</Button>
                 )
             })
         }
@@ -55,7 +55,7 @@ function Projects(props){
         if(repos.length > 0){
             return repos.map((repos, index) => {
                 return(
-                <Button key={repos} style={{color: props.theme.fontColor, fontSize: 9, overflow: 'hidden'}} href={repos} type={"text"} size={'middle'}>{<GithubOutlined style={{color: props.theme.fontColor}}/>} Github Repo: {index+1}</Button>
+                <Button target={"_blank"} key={repos} style={{color: props.theme.fontColor, fontSize: 9, overflow: 'hidden'}} href={repos} type={"text"} size={'middle'}>{<GithubOutlined style={{color: props.theme.fontColor}}/>} Github Repo: {index+1}</Button>
                 )
             })
         }

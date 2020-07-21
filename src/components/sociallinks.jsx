@@ -40,7 +40,7 @@ function SocialLinks(props){
             return(
                 <Col key={social.key} xs={props.xs}>
                     <Button size={'large'} icon={social.icon}
-                    href={social.link} type={"text"}/>
+                    href={social.link} type={"text"} target={"_blank"}/>
                 </Col>
             )
         })

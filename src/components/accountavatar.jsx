@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {Avatar, Button} from 'antd'
 import {useQuery} from '@apollo/react-hooks';
 import gql from 'graphql-tag'
@@ -21,7 +21,7 @@ function AccountAvatar(props){
         {
             variables: {token: props.token}
         })
-
+        
     if(accountData){
         if(accountData.getUser.userId !== ""){
             return(
