@@ -2,19 +2,20 @@ import React, {useState} from 'react';
 import './App.css';
 
 // third party libraries
-import { motion } from 'framer-motion'
 import {Drawer, Button, Row, Col, Input, message, Switch, Modal} from 'antd'
 import {MenuOutlined, RocketFilled, ExperimentFilled, ToolFilled, PhoneFilled, UserOutlined, LockOutlined} from '@ant-design/icons'
 import ReactTypingEffect from 'react-typing-effect'
 import {useLazyQuery} from '@apollo/react-hooks';
 import gql from 'graphql-tag'
+import {Link} from 'react-router-dom'
 
 import NavBar from './components/navbar'
 import SocialLinks from './components/sociallinks'
 import GraphQLEditor from './components/graphqleditor'
 import Skills from './components/skills'
 import Projects from './components/projects'
-import AccountAvatar from './components/accountavatar.jsx'
+import Profile from './components/profile'
+import Admin from './pages/Admin'
 
 // static data
 import about from './data/about_metadata'
@@ -41,7 +42,7 @@ const LOGOUT = gql`
   }
 `
 
-function App() {
+function App(props) {
 
   const themes = {
     light: {
@@ -74,13 +75,17 @@ function App() {
   const [username, setUsername] = useState(null)
   const [password, setPassword] = useState(null)
   const [user, setUser] = useState({token: ""})
+  const [loggedIn, setLoggedIn] = useState(true)
+  const [profileVisible, setProfileVisible] = useState(false)
 
   let [login , {loading: loginLoad, data: loginData}] = useLazyQuery(LOGIN, {
     onCompleted: data => {
       setUser(data.login)
+      setLoggedIn(data.login.login)
       if(data.login.login){
         message.success({
-          content: "Logged in as: " + data.login.user.email
+          content: "Logged in as: " + data.login.user.email,
+          duration: 1
         })
         setLoginVisible(false)
       }
@@ -107,12 +112,17 @@ function App() {
     }
   })
 
-  if(user.token !== ""){
-    if(user.login){
+  const onAccountShow = () => {
+      if(loggedIn && user.token !== ""){
+          setProfileVisible(true)
+      }
+      else{
+        // do nothing
+      }
+  }
 
-    }
-    else{
-    }
+  const onAccountHide = () => {
+    setProfileVisible(false)
   }
 
   const onLogin = () => {
@@ -160,7 +170,10 @@ function App() {
     if(user.token !== ""){
         return(
           <Row justify={'end'} style={{marginTop: 30}} align={'middle'}> 
-            <AccountAvatar token={user.token} theme={theme}/>
+            <Button icon={<UserOutlined/>} onClick={onAccountShow}
+            type={"text"} style={{backgroundColor: theme.backgroundColor, color: theme.fontColor , textAlign: 'center', marginRight: 20}}>
+              {loginData.login.user.email}
+            </Button>
             <Button onClick={onLogout} type={"text"} size={'medium'} style={{fontSize: 12, marginRight: 20, backgroundColor: theme.secondaryButtonColor, color: 'white'}}>Logout</Button>
             <Switch style={{marginRight: 30 , backgroundColor: theme.switchColor}} checkedChildren={"Dark"} unCheckedChildren={"Light"} onClick={themeChange} defaultChecked={true}/>
           </Row>
@@ -173,6 +186,105 @@ function App() {
             <Switch style={{marginRight: 30 , backgroundColor: theme.switchColor}} checkedChildren={"Dark"} unCheckedChildren={"Light"} onClick={themeChange} defaultChecked={true}/>
           </Row>
         )
+    }
+  }
+
+  const switchViews = () => {
+    if(loggedIn && user.token !== ""){
+      return(
+        <Admin theme={theme} user={user}/>
+      )
+    }
+    else{
+      return(
+        <div>
+        <div className={'header'}>
+          
+          <div>
+            <h1 style={{color: theme.fontColor}}>Milo Rue | {<ReactTypingEffect text={["Web & Mobile Developer", "Software Engineer", "Full-Stack Developer", "React Enthusiast"]} style={{color: '#69C9A5'}}/>}</h1>  
+          </div>
+  
+          <SocialLinks xs={6} theme={theme}/>
+  
+          <Button type={'text'} size={"large"} style={{backgroundColor: theme.buttonColor, color: 'white'}} href={"https://docdro.id/LePG3ZX"} target={"_blank"}>Resume</Button>
+  
+        </div>
+  
+        <div id={"about"} className={"about"} style={{backgroundColor: theme.secondaryBackgroundColor, paddingTop: 30, paddingBottom: 30}}>
+          
+          <Row style={{margin: 20, textAlign: 'left'}} justify={'center'}>
+            <Col xs={24} md={18} lg={12}>
+              <h3 style={{color: theme.iconColor}}>{<RocketFilled/>} About</h3>
+              <p>{about}</p>
+            </Col>
+          </Row>
+          <Row style={{textAlign: 'left', marginBottom: 30}} justify={'center'}>
+            <Col xs={23} md={18} lg={18}>
+              <h4 style={{color: theme.fontColor}}>Query all about me:</h4>
+              <div style={{height: 400}}>
+              <GraphQLEditor/>
+              </div>
+              
+            </Col>
+            
+          </Row>
+        </div>
+  
+        <div id={"skills"} className={"skills"} style={{paddingTop: 30, paddingBottom: 30}}>
+          <Row style={{margin: 20, textAlign: 'left'}} justify={'center'}>
+            <Col xs={24} md={18} lg={12}>
+              <h3 style={{color: theme.iconColor}}>{<ExperimentFilled/>} Skills</h3>
+              <p>{skills}</p>
+            </Col>
+          </Row>
+          <Row style={{textAlign: 'left', marginBottom: 30, marginLeft: 20, marginRight: 20}} justify={'center'}>
+            <Col xs={20}>
+              <Skills type={"WEB"} name={"Web"} theme={theme}/>
+              <Skills type={"MOBILE"} name={"Mobile"} theme={theme}/>
+              <Skills type={"DATABASE"} name={"Databases"} theme={theme}/>
+              <Skills type={"LANGUAGE"} name={"Languages"} theme={theme}/>
+            </Col>
+            
+          </Row>
+        </div>
+  
+        <div id={"projects"} className={"projects"} style={{backgroundColor: theme.secondaryBackgroundColor, paddingTop: 30, paddingBottom: 30}}>
+        <Row style={{margin: 20, textAlign: 'left'}} justify={'center'}>
+            <Col xs={24} md={18} lg={12}>
+              <h3 style={{color: theme.iconColor}}>{<ToolFilled/>} Projects</h3>
+              <p>{project}</p>
+            </Col>
+          </Row>
+  
+          <Row style={{textAlign: 'left', marginBottom: 30, marginLeft: 20, marginRight: 20}} justify={'center'}>
+            <Col xs={20} style={{textAlign: 'center'}}>
+              <Projects theme={theme}/>
+            </Col>
+            
+          </Row>
+        </div>
+  
+        <div id={"contact"} className={"contact"} style={{paddingTop: 30, paddingBottom: 30}}>
+        <Row style={{margin: 20, textAlign: 'left'}} justify={'center'}>
+            <Col xs={24} md={18} lg={12}>
+              <h3 style={{color: theme.iconColor}}>{<PhoneFilled/>} Contact</h3>
+              <p>Email: milorue@gmail.com</p>
+              <p>LinkedIn: https://www.linkedin.com/in/milorue/</p>
+            </Col>
+          </Row>
+        </div>
+  
+        <div className={"footer"}>
+        <Row style={{paddingTop: 70, paddingBottom: 70, textAlign: 'center', backgroundColor: 'lightgrey'}} justify={'center'}>
+            <Col xs={24}>
+              <p style={{color: 'black'}}>Made with 💜 by Milo Rue ©</p>
+              <SocialLinks xs={1} theme={{fontColor: 'black'}}/>
+            </Col>
+          </Row>
+        </div>
+      </div>
+      )
+      
     }
   }
 
@@ -196,97 +308,19 @@ function App() {
             <NavBar/>
           </Drawer>
 
+          <Drawer placement={"top"} onClose={onAccountHide} visible={profileVisible} maskStyle={{backgroundColor: 'transparent'}}>
+            <Profile user={user}/>
+          </Drawer>
+
         <div className={'nav'}>
           <Button onClick={revealNav} size={'large'} icon={<MenuOutlined style={{color: theme.fontColor}}/>} style={{margin: 20}} type={"text"}/>
         </div>
 
         {renderAccountButtons()}
-          
 
-        <div className={'header'}>
-          
-          <div>
-            <h1 style={{color: theme.fontColor}}>Milo Rue | {<ReactTypingEffect text={["Web & Mobile Developer", "Software Engineer", "Full-Stack Developer", "React Enthusiast"]} style={{color: '#69C9A5'}}/>}</h1>  
-          </div>
-
-          <SocialLinks xs={6} theme={theme}/>
-
-          <Button type={'text'} size={"large"} style={{backgroundColor: theme.buttonColor, color: 'white'}} href={"https://docdro.id/LePG3ZX"} target={"_blank"}>Resume</Button>
-
-        </div>
-
-        <div id={"about"} className={"about"} style={{backgroundColor: theme.secondaryBackgroundColor, paddingTop: 30, paddingBottom: 30}}>
-          
-          <Row style={{margin: 20, textAlign: 'left'}} justify={'center'}>
-            <Col xs={24} md={18} lg={12}>
-              <h3 style={{color: theme.iconColor}}>{<RocketFilled/>} About</h3>
-              <p>{about}</p>
-            </Col>
-          </Row>
-          <Row style={{textAlign: 'left', marginBottom: 30}} justify={'center'}>
-            <Col xs={23} md={18} lg={18}>
-              <h4 style={{color: theme.fontColor}}>Query all about me:</h4>
-              <div style={{height: 400}}>
-              <GraphQLEditor/>
-              </div>
-              
-            </Col>
-            
-          </Row>
-        </div>
-
-        <div id={"skills"} className={"skills"} style={{paddingTop: 30, paddingBottom: 30}}>
-          <Row style={{margin: 20, textAlign: 'left'}} justify={'center'}>
-            <Col xs={24} md={18} lg={12}>
-              <h3 style={{color: theme.iconColor}}>{<ExperimentFilled/>} Skills</h3>
-              <p>{skills}</p>
-            </Col>
-          </Row>
-          <Row style={{textAlign: 'left', marginBottom: 30, marginLeft: 20, marginRight: 20}} justify={'center'}>
-            <Col xs={20}>
-              <Skills type={"WEB"} name={"Web"} theme={theme}/>
-              <Skills type={"MOBILE"} name={"Mobile"} theme={theme}/>
-              <Skills type={"DATABASE"} name={"Databases"} theme={theme}/>
-              <Skills type={"LANGUAGE"} name={"Languages"} theme={theme}/>
-            </Col>
-            
-          </Row>
-        </div>
-
-        <div id={"projects"} className={"projects"} style={{backgroundColor: theme.secondaryBackgroundColor, paddingTop: 30, paddingBottom: 30}}>
-        <Row style={{margin: 20, textAlign: 'left'}} justify={'center'}>
-            <Col xs={24} md={18} lg={12}>
-              <h3 style={{color: theme.iconColor}}>{<ToolFilled/>} Projects</h3>
-              <p>{project}</p>
-            </Col>
-          </Row>
-
-          <Row style={{textAlign: 'left', marginBottom: 30, marginLeft: 20, marginRight: 20}} justify={'center'}>
-            <Col xs={20} style={{textAlign: 'center'}}>
-              <Projects theme={theme}/>
-            </Col>
-            
-          </Row>
-        </div>
-
-        <div id={"contact"} className={"contact"} style={{paddingTop: 30, paddingBottom: 30}}>
-        <Row style={{margin: 20, textAlign: 'left'}} justify={'center'}>
-            <Col xs={24} md={18} lg={12}>
-              <h3 style={{color: theme.iconColor}}>{<PhoneFilled/>} Contact</h3>
-              <p>Email: milorue@gmail.com</p>
-              <p>LinkedIn: https://www.linkedin.com/in/milorue/</p>
-            </Col>
-          </Row>
-        </div>
-
-        <div className={"footer"}>
-        <Row style={{paddingTop: 70, paddingBottom: 70, textAlign: 'center', backgroundColor: 'lightgrey'}} justify={'center'}>
-            <Col xs={24}>
-              <p style={{color: 'black'}}>Made with 💜 by Milo Rue ©</p>
-              <SocialLinks xs={1} theme={{fontColor: 'black'}}/>
-            </Col>
-          </Row>
-        </div>
+        {switchViews()}
+        
+        
       </div>
 
     
