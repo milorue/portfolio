@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {Row, Col, Button, Card, Tag, Tooltip, Typography} from 'antd'
 import {useQuery} from '@apollo/react-hooks';
 import gql from 'graphql-tag'
-import {LoadingOutlined, DatabaseFilled, GithubOutlined, DesktopOutlined} from '@ant-design/icons'
+import {LoadingOutlined, DatabaseFilled, GithubOutlined, DesktopOutlined, VideoCameraOutlined} from '@ant-design/icons'
 import './projects.css'
 
 const GET_PROJECTS = gql`
@@ -13,6 +13,7 @@ query projects{
         used
         links
         repos
+        videos
         note
         image
     }
@@ -34,7 +35,17 @@ function Projects(props){
         if(links.length > 0){
             return links.map((link) => {
                 return(
-                    <Button style={{color: props.theme.fontColor, fontSize: 9, overflow: 'hidden'}} href={link} type={"text"} size={'middle'}>{<DesktopOutlined style={{color: props.theme.fontColor}}/>} {link}</Button>
+                    <Button key={link} style={{color: props.theme.fontColor, fontSize: 9, overflow: 'hidden'}} href={link} type={"text"} size={'middle'}>{<DesktopOutlined style={{color: props.theme.fontColor}}/>} {link}</Button>
+                )
+            })
+        }
+    }
+
+    const renderVideos = (videos) => {
+        if(videos.length > 0){
+            return videos.map((video) => {
+                return(
+                    <Button key={video} style={{color: props.theme.fontColor, fontSize: 9, overflow: 'hidden'}} href={video} type={"text"} size={'middle'}>{<VideoCameraOutlined style={{color: props.theme.fontColor}}/>} Video</Button>
                 )
             })
         }
@@ -44,7 +55,7 @@ function Projects(props){
         if(repos.length > 0){
             return repos.map((repos, index) => {
                 return(
-                <Button style={{color: props.theme.fontColor, fontSize: 9, overflow: 'hidden'}} href={repos} type={"text"} size={'middle'}>{<GithubOutlined style={{color: props.theme.fontColor}}/>} Github Repo: {index+1}</Button>
+                <Button key={repos} style={{color: props.theme.fontColor, fontSize: 9, overflow: 'hidden'}} href={repos} type={"text"} size={'middle'}>{<GithubOutlined style={{color: props.theme.fontColor}}/>} Github Repo: {index+1}</Button>
                 )
             })
         }
@@ -61,6 +72,7 @@ function Projects(props){
                             <Row style={{marginTop: 10}}>
                                 {renderLinkButtons(project.links)}
                                 {renderRepoButtons(project.repos)}
+                                {renderVideos(project.videos)}
                             </Row>
                         </Card>
                     </Col>

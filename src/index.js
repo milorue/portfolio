@@ -13,7 +13,11 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <App/>
+    <BrowserRouter basename={'/'} useHistory>
+      <Switch>
+        <Route exact path='/' component={App}/>
+      </Switch>
+    </BrowserRouter>
   </ApolloProvider>,
   document.getElementById('root')
 );
