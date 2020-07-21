@@ -13,7 +13,14 @@ function GraphQLFetcher(graphQLParams){
 
 function GraphQLEditor(){
     return(
-        <GraphiQL fetcher={GraphQLFetcher} docExplorerOpen={false} defaultSecondaryEditorOpen={false}/>
+        <GraphiQL fetcher={GraphQLFetcher} docExplorerOpen={false} defaultSecondaryEditorOpen={false} defaultQuery={`# Welcome to my GraphQL Career API!
+# Consult the docs for queries, types, and documentation
+query{
+    milo{
+        firstName
+        lastName
+    }
+}`}/>
     )
 }
 

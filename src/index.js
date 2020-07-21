@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import Admin from './pages/Admin'
 
 import {Route, BrowserRouter, Switch} from 'react-router-dom'
 import ApolloClient from 'apollo-boost'
@@ -16,6 +17,7 @@ ReactDOM.render(
     <BrowserRouter basename={'/'} useHistory>
       <Switch>
         <Route exact path='/' component={App}/>
+        <Route path='/dashboard' component={Admin}/>
       </Switch>
     </BrowserRouter>
   </ApolloProvider>,

@@ -1,0 +1,21 @@
+.header{
+    align-items: center;
+    font-family: 'Biryani', 'Helvetica Neue',
+    sans-serif;
+    display: flex;
+    height: 50vh;
+    justify-content: center;
+    flex-direction: column;
+  }
+  
+  .nav{
+    justify-content: left;
+    position: fixed;
+    flex-direction: row;
+    z-index:9; 
+  }
+  
+  .about{
+    align-items: center;
+    
+  }
