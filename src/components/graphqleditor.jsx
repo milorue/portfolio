@@ -4,7 +4,7 @@ import fetch from 'isomorphic-fetch'
 import './graphqltheme.css'
 
 function GraphQLFetcher(graphQLParams){
-    return fetch("http://milorue.herokuapp.com/", {
+    return fetch("https://milorue.herokuapp.com/", {
         method: "post",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(graphQLParams),
