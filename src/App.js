@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './App.css';
 
 // third party libraries
 import {Drawer, Button, Row, Col, Input, message, Switch, Modal} from 'antd'
 import {MenuOutlined, RocketFilled, ExperimentFilled, ToolFilled, PhoneFilled, UserOutlined, LockOutlined} from '@ant-design/icons'
 import ReactTypingEffect from 'react-typing-effect'
-import {useLazyQuery} from '@apollo/react-hooks';
+import {useLazyQuery, useQuery} from '@apollo/react-hooks';
 import gql from 'graphql-tag'
 import {Link} from 'react-router-dom'
 
@@ -17,10 +17,33 @@ import Projects from './components/projects'
 import Profile from './components/profile'
 import Admin from './pages/Admin'
 
-// static data
-import about from './data/about_metadata'
-import skills from './data/skills_metadata'
-import project from './data/project_metadata'
+const ABOUT = gql`
+  query about{
+    about{
+      _id
+      about
+    }
+  }
+`
+
+const SKILLBLURB = gql`
+  query skillBlurb{
+    skillBlurb{
+      _id
+      skills
+    }
+  }
+`
+
+const PROJECTBLURB = gql`
+  query projectBlurb{
+    projectBlurb{
+      _id
+      projects
+    }
+  }
+`
+
 
 const LOGIN = gql`
   query login($email: String!, $password: String!){
@@ -77,8 +100,28 @@ function App(props) {
   const [username, setUsername] = useState(null)
   const [password, setPassword] = useState(null)
   const [user, setUser] = useState({token: ""})
-  const [loggedIn, setLoggedIn] = useState(true)
+  const [loggedIn, setLoggedIn] = useState(false)
   const [profileVisible, setProfileVisible] = useState(false)
+  const [about, setAbout] = useState("Loading...")
+  const [project, setPBlurb] = useState("Loading...")
+  const [skills, setSBlurb] = useState("Loading...")
+
+  const {loading: aboutLoading, error: aboutError, data: aboutData} = useQuery(ABOUT)
+  const {loading: skillBLoading, error: skillBError, data: skillBData} = useQuery(SKILLBLURB)
+  const {loading: projectBLoading, error: projectBError, data: projectBData} = useQuery(PROJECTBLURB)
+
+
+    useEffect(() =>{
+        if(aboutData){
+          setAbout(aboutData.about.about)
+        }
+        if(skillBData){
+          setSBlurb(skillBData.skillBlurb.skills)
+        }
+        if(projectBData){
+          setPBlurb(projectBData.projectBlurb.projects)
+        }
+    })
 
   let [login , {loading: loginLoad, data: loginData}] = useLazyQuery(LOGIN, {
     onCompleted: data => {
@@ -192,7 +235,7 @@ function App(props) {
   }
 
   const switchViews = () => {
-    if(loggedIn){
+    if(loggedIn && user.token !== ""){
       return(
         <Admin theme={theme} user={user}/>
       )
