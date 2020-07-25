@@ -66,7 +66,7 @@ function Projects(props){
             return projects.map((project) => {
                 return(
                     <Col xs={24} sm={12} md={12} lg={8} xl={6} xxl={4} key={project.name} style={{width: "100%"}}>
-                        <Card style={{borderColor: 'transparent', borderRadius: 5, borderWidth: 0}} cover={<img style={{color: props.theme.fontColor ,height: 200, width: "100%"}} className={"cardImg"} src={project.image}/>} bodyStyle={{borderColor: "transparent", height: 250, textAlign: 'left' ,backgroundColor: props.theme.boxColor, color: props.theme.fontColor}} hoverable>
+                        <Card style={{borderColor: 'transparent', borderRadius: 5, borderWidth: 0}} cover={<img style={{color: props.theme.fontColor ,height: 200, width: "100%"}} className={"cardImg"} src={project.image}/>} bodyStyle={{borderColor: "transparent", height: 250, textAlign: 'left' ,backgroundColor: props.theme.boxColorAlt, color: props.theme.fontColor}} hoverable>
                             <h4 style={{color: props.theme.fontColor}}>{project.name}</h4>
                             <Typography.Paragraph ellipsis={{rows: 3}} style={{fontSize: 10, color: props.theme.fontColor}}>{project.description}</Typography.Paragraph>
                             <Row style={{marginTop: 10}}>

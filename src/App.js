@@ -52,6 +52,7 @@ function App(props) {
       secondaryBackgroundColor: 'whitesmoke',
       buttonColor: '#28262C',
       boxColor: 'lightgrey',
+      boxColorAlt: "#B9B9B9",
       switchColor: 'lightgrey',
       iconColor: '#43BC8F',
       secondaryButtonColor: "#946FC3",
@@ -64,6 +65,7 @@ function App(props) {
       buttonColor: '#30475E',
       switchColor: '#30475e',
       boxColor: '#21262b',
+      boxColorAlt: "#374048",
       iconColor: '#69C9A5',
       secondaryButtonColor: "#794BB4",
     }
@@ -190,7 +192,7 @@ function App(props) {
   }
 
   const switchViews = () => {
-    if(loggedIn && user.token !== ""){
+    if(loggedIn){
       return(
         <Admin theme={theme} user={user}/>
       )
