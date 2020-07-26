@@ -104,6 +104,7 @@ function Admin(props){
 
     const onAboutConfirm = () => {
         updateAbout({variables: {token: props.user.token, about: about, id: aboutData.about._id}})
+        aboutData.about.about = about
     }
 
     const onSkillBChange = event => {
@@ -116,6 +117,7 @@ function Admin(props){
 
     const onSkillBConfirm = () => {
         updateSkillBlurb({variable: {token: props.user.token, skill: skillBlurb, id: skillBData.skillBlurb._id}})
+        skillBData.skillBlurb.skills = skillBlurb
     }
 
     const onProjectBChange = event => {
@@ -128,6 +130,7 @@ function Admin(props){
 
     const onProjectBConfirm = () => {
         updateProjectBlurb({variables:{token: props.user.token, project: projectBlurb, id: projectBData.projectBlurb._id}})
+        projectBData.projectBlurb.projects = projectBlurb
     }
 
     const renderProjectBlurbButtons = () =>{
