@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import Admin from './pages/Admin'
 
-import {Route, BrowserRouter} from 'react-router-dom'
+import {Route, BrowserRouter, Redirect} from 'react-router-dom'
 import ApolloClient from 'apollo-boost'
 import {ApolloProvider} from '@apollo/react-hooks'
 
@@ -17,6 +17,10 @@ ReactDOM.render(
     <BrowserRouter basename={'/'} useHistory>
         <Route exact path='/' component={() => <App/>}/>
         <Route path='/dashboard' component={() => <Admin/>}/>
+        <Route path='/resume' component={() => {
+          window.location.href= "https://docdro.id/fN6uDQl";
+          return null;
+        }}/>
     </BrowserRouter>
   </ApolloProvider>,
   document.getElementById('root')

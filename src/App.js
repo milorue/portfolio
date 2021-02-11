@@ -251,7 +251,7 @@ function App(props) {
   
           <SocialLinks xs={6} theme={theme}/>
   
-          <Button type={'text'} size={"large"} style={{backgroundColor: theme.buttonColor, color: 'white'}} href={"https://docdro.id/LePG3ZX"} target={"_blank"}>Resume</Button>
+          <Button type={'text'} size={"large"} style={{backgroundColor: theme.buttonColor, color: 'white'}} href={"https://docdro.id/fN6uDQl"} target={"_blank"}>Resume</Button>
   
         </div>
   
